@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
-from cloudinary.models import CloudinaryField
+from cloudinary.models import CloudinaryField  # Add this import
 
 class MiningProject(models.Model):
     STAGE_CHOICES = [
@@ -19,7 +19,10 @@ class MiningProject(models.Model):
     client_name = models.CharField(max_length=200, blank=True)
     testimonial = models.TextField(blank=True)
     completion_date = models.DateField(null=True, blank=True)
+    
+    # CHANGE THIS: From ImageField to CloudinaryField
     image = CloudinaryField('image', blank=True, null=True, folder='golden-expro/projects/')
+    
     gallery_images = models.JSONField(default=list, blank=True, help_text="List of Cloudinary URLs")
     featured = models.BooleanField(default=False)
     order = models.PositiveIntegerField(default=0)
@@ -27,8 +30,6 @@ class MiningProject(models.Model):
     
     class Meta:
         ordering = ['order', '-created_at']
-        verbose_name = "Mining Project"
-        verbose_name_plural = "Mining Projects"
     
     def __str__(self):
         return self.title

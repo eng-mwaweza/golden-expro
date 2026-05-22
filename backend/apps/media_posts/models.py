@@ -30,3 +30,4 @@ class MediaPost(models.Model):
         if not self.excerpt:
             self.excerpt = self.content[:200]
         super().save(*args, **kwargs)
+        
