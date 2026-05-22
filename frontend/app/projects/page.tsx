@@ -21,10 +21,23 @@ interface ApiResponse {
   results: Project[]
 }
 
+// Helper function to get full Cloudinary URL
+const getImageUrl = (imagePath: string): string => {
+  if (!imagePath) return ''
+  if (imagePath.startsWith('http')) return imagePath
+  // If it's a relative Cloudinary path, prepend the Cloudinary base URL
+  if (imagePath.includes('/image/upload/')) {
+    return `https://res.cloudinary.com/dy1fkjbva${imagePath}`
+  }
+  // Default fallback
+  return `https://res.cloudinary.com/dy1fkjbva/${imagePath}`
+}
+
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({})
 
   useEffect(() => {
     fetchProjects()
@@ -63,6 +76,10 @@ export default function ProjectsPage() {
     }
   }
 
+  const handleImageError = (projectId: number) => {
+    setImageErrors(prev => ({ ...prev, [projectId]: true }))
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -94,32 +111,47 @@ export default function ProjectsPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
-            <div
-              key={project.id}
-              className="rounded-lg overflow-hidden transition-all duration-300 hover:transform hover:scale-105 hover:shadow-xl"
-              style={{ backgroundColor: '#1F222A' }}
-            >
-              <div className="h-48 bg-gray-700 flex items-center justify-center">
-                {project.image ? (
-                  <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
-                ) : (
-                  <div className="text-gray-400">No image available</div>
-                )}
-              </div>
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-xl font-semibold">{project.title}</h3>
-                  <span className={`px-2 py-1 rounded text-xs text-white ${getStageColor(project.stage)}`}>
-                    {getStageLabel(project.stage)}
-                  </span>
+          {projects.map((project) => {
+            const imageUrl = getImageUrl(project.image)
+            const hasError = imageErrors[project.id]
+            
+            return (
+              <div
+                key={project.id}
+                className="rounded-lg overflow-hidden transition-all duration-300 hover:transform hover:scale-105 hover:shadow-xl"
+                style={{ backgroundColor: '#1F222A' }}
+              >
+                <div className="h-48 bg-gray-700 flex items-center justify-center">
+                  {imageUrl && !hasError ? (
+                    <img 
+                      src={imageUrl} 
+                      alt={project.title} 
+                      className="w-full h-full object-cover"
+                      onError={() => handleImageError(project.id)}
+                    />
+                  ) : (
+                    <div className="text-gray-400 text-center p-4">
+                      <svg className="w-12 h-12 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      No image available
+                    </div>
+                  )}
                 </div>
-                <p className="text-gray-400 text-sm mb-2">{project.location}</p>
-                <p className="text-miningGold text-sm mb-3">{project.commodity}</p>
-                <p className="text-gray-400 text-sm">{project.description.substring(0, 100)}...</p>
+                <div className="p-6">
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-xl font-semibold">{project.title}</h3>
+                    <span className={`px-2 py-1 rounded text-xs text-white ${getStageColor(project.stage)}`}>
+                      {getStageLabel(project.stage)}
+                    </span>
+                  </div>
+                  <p className="text-gray-400 text-sm mb-2">{project.location}</p>
+                  <p className="text-miningGold text-sm mb-3">{project.commodity}</p>
+                  <p className="text-gray-400 text-sm">{project.description.substring(0, 100)}...</p>
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         {projects.length === 0 && (
