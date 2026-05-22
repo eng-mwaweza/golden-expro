@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.text import slugify
+from cloudinary.models import CloudinaryField  # Add this import
 
 class MediaPost(models.Model):
     CATEGORY_CHOICES = [
@@ -11,7 +13,10 @@ class MediaPost(models.Model):
     category = models.CharField(max_length=10, choices=CATEGORY_CHOICES)
     content = models.TextField()
     excerpt = models.CharField(max_length=300, blank=True)
-    image = models.ImageField(upload_to='media_posts/')
+    
+    # CHANGE THIS: From ImageField to CloudinaryField
+    image = CloudinaryField('image', blank=True, null=True, folder='golden-expro/media_posts/')
+    
     author = models.CharField(max_length=100, default='Golden Expro Team')
     published_date = models.DateField(auto_now_add=True)
     is_featured = models.BooleanField(default=False)
@@ -21,7 +26,6 @@ class MediaPost(models.Model):
     
     def save(self, *args, **kwargs):
         if not self.slug:
-            from django.utils.text import slugify
             self.slug = slugify(self.title)
         if not self.excerpt:
             self.excerpt = self.content[:200]

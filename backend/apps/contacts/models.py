@@ -10,5 +10,10 @@ class ContactMessage(models.Model):
     is_read = models.BooleanField(default=False)
     received_at = models.DateTimeField(auto_now_add=True)
     
+    class Meta:
+        ordering = ['-received_at']
+        verbose_name = "Contact Message"
+        verbose_name_plural = "Contact Messages"
+    
     def __str__(self):
-        return f"Message from {self.full_name} - {self.received_at}"
+        return f"Message from {self.full_name} - {self.received_at.strftime('%Y-%m-%d')}"
