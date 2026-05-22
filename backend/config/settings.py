@@ -14,11 +14,11 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-8x9*&^%$#@!123
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,.onrender.com').split(',')
 
 # Application definition
 INSTALLED_APPS = [
-    'jazzmin',  # Jazzmin admin theme (replaces unfold)
+    'jazzmin',  # Jazzmin admin theme
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # MUST be here for static files
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -116,6 +117,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
+# WhiteNoise for static files in production
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 # Create static directory if it doesn't exist
 if not os.path.exists(os.path.join(BASE_DIR, 'static')):
     os.makedirs(os.path.join(BASE_DIR, 'static'))
@@ -156,7 +160,7 @@ if not EMAIL_HOST_USER or not EMAIL_HOST_PASSWORD:
 # CORS Configuration
 CORS_ALLOWED_ORIGINS = os.environ.get(
     'CORS_ALLOWED_ORIGINS', 
-    'http://localhost:3000,http://127.0.0.1:3000'
+    'http://localhost:3000,http://127.0.0.1:3000,https://*.vercel.app'
 ).split(',')
 CORS_ALLOW_CREDENTIALS = True
 
@@ -279,7 +283,7 @@ if DEBUG:
     ╔══════════════════════════════════════════════════════════╗
     ║           GOLDEN EXPRO - Development Server              ║
     ╠══════════════════════════════════════════════════════════╣
-    ║  Database: SQLITE                                         
+    ║  Database: {DATABASES['default']['ENGINE'].split('.')[-1].upper()}                                         
     ║  Debug Mode: {DEBUG}                                             
     ║  Timezone: {TIME_ZONE}                                          
     ║  Admin URL: http://localhost:8000/admin                         
