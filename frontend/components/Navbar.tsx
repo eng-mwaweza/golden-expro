@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { IoClose } from 'react-icons/io5'
 import { FaChevronDown } from 'react-icons/fa'
@@ -12,55 +12,55 @@ const services = [
     id: 1,
     name: 'Strategy',
     slug: 'strategy',
-    description: 'Unlock project value by integrating geological and metallurgical ore characteristics, mine planning and environmental drivers.',
-    fullDescription: 'Our strategy service helps mining companies maximize project value through integrated planning. We combine geological understanding with operational expertise to create comprehensive mine plans that optimize resource extraction while minimizing environmental impact.',
+    description: 'Minrom\'s strategy service aims to unlock the value of a project by integrating geological and metallurgical ore characteristics, mine planning and environmental drivers of ore deposits.',
+    fullDescription: 'We combine geological and geometallurgical expertise with strategic planning to optimise resource utilisation, improve operational efficiency, and enhance project viability. From feasibility studies to life-of-mine planning, we help clients navigate complex geological, technical, and economic challenges.',
     icon: '📊',
-    color: 'from-blue-500 to-cyan-500'
+    color: 'border-blue-500'
   },
   {
     id: 2,
     name: 'Exploration',
     slug: 'exploration',
-    description: 'Identify and evaluate mineral deposits using advanced geological exploration techniques to maximise discovery potential.',
-    fullDescription: 'We utilize cutting-edge geological exploration techniques to identify and evaluate mineral deposits with precision. Our team of expert geologists employs advanced geophysical, geochemical, and remote sensing methods to maximize discovery potential.',
+    description: 'Minrom\'s Exploration services identify and evaluate mineral deposits using advanced geological exploration techniques to maximise discovery potential and investment returns.',
+    fullDescription: 'We provide junior explorers or prospecting companies with the expertise and tools needed to discover and define valuable mineral resources. Whether it\'s mineral target generation, structural geology analysis, geometallurgical characterisation, or prospecting work programme development.',
     icon: '⛏️',
-    color: 'from-yellow-500 to-orange-500'
+    color: 'border-yellow-500'
   },
   {
     id: 3,
     name: 'Resource Modelling & GIS',
     slug: 'modelling-gis',
-    description: 'Integrate complex geological, structural and geometallurgical data into well-informed optimised mine plans.',
-    fullDescription: 'We transform complex geological data into actionable insights using advanced 3D modelling and GIS technologies. Our integrated approach combines structural, geochemical, and geometallurgical data to create optimized mine plans that drive NPV growth.',
+    description: 'Transform complex geological data into actionable insights, enabling precise Mineral Resource estimation and strategic decision-making.',
+    fullDescription: 'Using advanced geological modelling and Geographic Information Systems (GIS), we create highly detailed 3D resource models that accurately represent subsurface conditions to drive increase in NPV.',
     icon: '🗺️',
-    color: 'from-green-500 to-teal-500'
+    color: 'border-green-500'
   },
   {
     id: 4,
     name: 'Mining Geology',
     slug: 'mining-geology',
-    description: 'Expert integration of mine planning and grade control practices for efficient ore extraction and reserve reconciliation.',
-    fullDescription: 'Our mining geology services bridge the gap between exploration and production. We provide expert grade control, resource reconciliation, and mine planning support to ensure efficient ore extraction and maximum recovery.',
+    description: 'Bridge the gap between exploration and operational success with expert grade control, structural geology analysis, and reconciliation.',
+    fullDescription: 'We turn geological data into actionable intelligence, ensuring sustainable and efficient mining practices. From grade control to reconciliation, we ensure you extract maximum value from your mineral resources.',
     icon: '⛰️',
-    color: 'from-purple-500 to-pink-500'
+    color: 'border-purple-500'
   },
   {
     id: 5,
     name: 'Hydrogeology',
     slug: 'hydrogeology',
-    description: 'Specialize in groundwater detection, quantification, management, and sustainability solutions for mining operations.',
-    fullDescription: 'We provide comprehensive hydrogeological services including groundwater detection, quantification, and sustainable management. Our solutions help mining operations maintain environmental compliance while optimizing water resource usage.',
+    description: 'Specialise in the detection, quantification, and management of valuable groundwater resources for mining operations.',
+    fullDescription: 'Our hydrogeology services provide critical insights into groundwater availability, movement, and quality, helping clients mitigate risks, optimise resource use, and comply with environmental regulations.',
     icon: '💧',
-    color: 'from-blue-500 to-indigo-500'
+    color: 'border-cyan-500'
   },
   {
     id: 6,
     name: 'Training',
     slug: 'training',
-    description: 'Equip professionals with hands-on skills in mineral exploration, resource estimation, and mine planning.',
-    fullDescription: 'Our training programs provide hands-on skills development for mining professionals. From mineral exploration to mine planning, our courses are designed to prepare teams for real-world mining applications.',
+    description: 'Equip exploration and mining professionals with the knowledge and practical skills needed to excel in the field.',
+    fullDescription: 'From mapping and geological modelling to grade control and mining 101, we help professionals master real-world mining applications and drive NPV growth for your project.',
     icon: '🎓',
-    color: 'from-red-500 to-orange-500'
+    color: 'border-orange-500'
   },
 ]
 
@@ -68,6 +68,25 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isServicesOpen, setIsServicesOpen] = useState(false)
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    setIsServicesOpen(true)
+  }
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setIsServicesOpen(false)
+    }, 300) // 300ms delay before closing
+  }
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    }
+  }, [])
 
   const navItems = [
     { name: 'Home', href: '/' },
@@ -78,136 +97,62 @@ const Navbar = () => {
   ]
 
   return (
-    <>
-      <nav className="bg-miningDark/95 backdrop-blur-md fixed w-full z-50 border-b border-miningGold/20">
-        <div className="container-custom">
-          <div className="flex justify-between items-center h-20">
-            {/* Logo */}
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-miningGold rounded-md flex items-center justify-center">
-                <span className="text-miningDark font-bold text-xl">GE</span>
-              </div>
-              <span className="text-white font-display font-bold text-xl hidden sm:inline">
-                GOLDEN <span className="text-miningGold">EXPRO</span>
-              </span>
-            </Link>
-
-            {/* Desktop Menu */}
-            <div className="hidden md:flex space-x-8">
-              {navItems.map((item) => (
-                <div
-                  key={item.name}
-                  className="relative"
-                  onMouseEnter={() => item.hasDropdown && setIsServicesOpen(true)}
-                  onMouseLeave={() => item.hasDropdown && setIsServicesOpen(false)}
-                >
-                  <Link
-                    href={item.href}
-                    className="text-gray-300 hover:text-miningGold transition-colors duration-300 font-medium flex items-center gap-1"
-                  >
-                    {item.name}
-                    {item.hasDropdown && <FaChevronDown className="text-xs" />}
-                  </Link>
-                </div>
-              ))}
+    <nav className="bg-miningDark/95 backdrop-blur-md fixed w-full z-50 border-b border-miningGold/20">
+      <div className="container-custom">
+        <div className="flex justify-between items-center h-20">
+          {/* Logo */}
+          <Link href="/" className="flex items-center space-x-2">
+            <div className="w-10 h-10 bg-miningGold rounded-md flex items-center justify-center">
+              <span className="text-miningDark font-bold text-xl">GE</span>
             </div>
+            <span className="text-white font-display font-bold text-xl hidden sm:inline">
+              GOLDEN <span className="text-miningGold">EXPRO</span>
+            </span>
+          </Link>
 
-            {/* CTA Button */}
-            <div className="hidden md:block">
-              <Link href="/contact" className="btn-primary py-2 px-4">
-                Partner With Us
-              </Link>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden text-white text-2xl"
-            >
-              {isOpen ? <IoClose /> : <GiHamburgerMenu />}
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      {/* Full-Width Mega Dropdown - Separate from nav */}
-      {isServicesOpen && (
-        <div 
-          className="fixed left-0 right-0 top-20 z-40 bg-miningGray/95 backdrop-blur-md border-b border-miningGold/20 shadow-2xl"
-          onMouseEnter={() => setIsServicesOpen(true)}
-          onMouseLeave={() => setIsServicesOpen(false)}
-        >
-          <div className="container-custom py-8">
-            {/* Header */}
-            <div className="flex justify-between items-center mb-6 pb-4 border-b border-miningGold/20">
-              <h3 className="text-miningGold font-semibold text-xl">Our Services</h3>
-              <Link
-                href="/services"
-                className="text-gray-400 hover:text-miningGold transition text-sm flex items-center gap-1"
+          {/* Desktop Menu */}
+          <div className="hidden md:flex space-x-8">
+            {navItems.map((item) => (
+              <div
+                key={item.name}
+                className="relative"
+                onMouseEnter={item.hasDropdown ? handleMouseEnter : undefined}
+                onMouseLeave={item.hasDropdown ? handleMouseLeave : undefined}
               >
-                View All Services
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
-
-            {/* Services Grid - 2 rows of 3 columns */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {services.map((service) => (
                 <Link
-                  key={service.id}
-                  href={`/services/${service.slug}`}
-                  className="group block p-5 rounded-xl bg-miningDark hover:bg-miningDark/70 transition-all duration-300 hover:transform hover:scale-105"
+                  href={item.href}
+                  className="text-gray-300 hover:text-miningGold transition-colors duration-300 font-medium flex items-center gap-1"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="text-4xl">{service.icon}</div>
-                    <div className="flex-1">
-                      <h4 className="text-white font-semibold group-hover:text-miningGold transition text-lg mb-2">
-                        {service.name}
-                      </h4>
-                      <p className="text-gray-400 text-sm leading-relaxed line-clamp-2">
-                        {service.description}
-                      </p>
-                      <div className="mt-3 inline-flex items-center text-miningGold text-sm opacity-0 group-hover:opacity-100 transition-opacity">
-                        Learn more
-                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-
-            {/* Bottom CTA */}
-            <div className="mt-8 pt-6 border-t border-miningGold/20">
-              <div className="bg-miningDark/50 rounded-lg p-4 text-center">
-                <p className="text-gray-300">
-                  <span className="text-miningGold font-semibold">Need expert advice?</span>{' '}
-                  Contact us to discuss how our services can benefit your project.
-                </p>
-                <Link
-                  href="/contact"
-                  className="inline-block mt-3 text-miningGold hover:underline text-sm"
-                >
-                  Request a Consultation →
+                  {item.name}
+                  {item.hasDropdown && <FaChevronDown className="text-xs" />}
                 </Link>
               </div>
-            </div>
+            ))}
           </div>
-        </div>
-      )}
 
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="fixed inset-0 top-20 z-40 bg-miningDark/95 backdrop-blur-md overflow-y-auto md:hidden">
-          <div className="container-custom py-4">
+          {/* CTA Button */}
+          <div className="hidden md:block">
+            <Link href="/contact" className="btn-primary py-2 px-4">
+              Partner With Us
+            </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden text-white text-2xl"
+          >
+            {isOpen ? <IoClose /> : <GiHamburgerMenu />}
+          </button>
+        </div>
+
+        {/* Mobile Menu with Services Expandable */}
+        {isOpen && (
+          <div className="md:hidden py-4 border-t border-miningGold/20 max-h-[80vh] overflow-y-auto">
             <Link
               href="/"
               onClick={() => setIsOpen(false)}
-              className="block py-3 text-gray-300 hover:text-miningGold transition-colors text-lg"
+              className="block py-3 text-gray-300 hover:text-miningGold transition-colors"
             >
               Home
             </Link>
@@ -216,7 +161,7 @@ const Navbar = () => {
             <div>
               <button
                 onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
-                className="w-full flex justify-between items-center py-3 text-gray-300 hover:text-miningGold transition-colors text-lg"
+                className="w-full flex justify-between items-center py-3 text-gray-300 hover:text-miningGold transition-colors"
               >
                 <span>Services</span>
                 <FaChevronDown className={`text-xs transition-transform ${isMobileServicesOpen ? 'rotate-180' : ''}`} />
@@ -232,14 +177,14 @@ const Navbar = () => {
                         setIsOpen(false)
                         setIsMobileServicesOpen(false)
                       }}
-                      className="block p-3 rounded-lg bg-miningGray hover:bg-miningGray/70 transition-colors"
+                      className="block p-3 rounded-lg hover:bg-miningGray transition-colors"
                     >
                       <div className="flex items-start gap-3">
-                        <div className="text-3xl">{service.icon}</div>
+                        <div className="text-2xl">{service.icon}</div>
                         <div>
                           <div className="text-white font-medium">{service.name}</div>
-                          <div className="text-gray-400 text-sm mt-1 line-clamp-2">
-                            {service.description}
+                          <div className="text-gray-400 text-xs mt-1 line-clamp-2">
+                            {service.description.substring(0, 80)}...
                           </div>
                         </div>
                       </div>
@@ -248,7 +193,7 @@ const Navbar = () => {
                   <Link
                     href="/services"
                     onClick={() => setIsOpen(false)}
-                    className="block mt-2 text-miningGold text-center py-2 hover:underline"
+                    className="block mt-2 text-miningGold text-sm text-center py-2 hover:underline"
                   >
                     View All Services →
                   </Link>
@@ -259,21 +204,21 @@ const Navbar = () => {
             <Link
               href="/projects"
               onClick={() => setIsOpen(false)}
-              className="block py-3 text-gray-300 hover:text-miningGold transition-colors text-lg"
+              className="block py-3 text-gray-300 hover:text-miningGold transition-colors"
             >
               Projects
             </Link>
             <Link
               href="/media"
               onClick={() => setIsOpen(false)}
-              className="block py-3 text-gray-300 hover:text-miningGold transition-colors text-lg"
+              className="block py-3 text-gray-300 hover:text-miningGold transition-colors"
             >
               Media
             </Link>
             <Link
               href="/contact"
               onClick={() => setIsOpen(false)}
-              className="block py-3 text-gray-300 hover:text-miningGold transition-colors text-lg"
+              className="block py-3 text-gray-300 hover:text-miningGold transition-colors"
             >
               Contact
             </Link>
@@ -285,9 +230,84 @@ const Navbar = () => {
               Partner With Us
             </Link>
           </div>
+        )}
+      </div>
+
+      {/* FULL SCREEN MEGA DROPDOWN - Appears when hovering over Services */}
+      {isServicesOpen && (
+        <div 
+          className="hidden md:block fixed left-0 right-0 top-20 bg-miningGray/95 backdrop-blur-md border-b border-miningGold/20 shadow-2xl z-40"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          style={{ minHeight: 'auto', maxHeight: '80vh', overflowY: 'auto' }}
+        >
+          <div className="container-custom py-8">
+            <div className="flex justify-between items-center mb-6 pb-4 border-b border-miningGold/20">
+              <h2 className="text-2xl font-display font-bold">
+                <span className="text-miningGold">Our</span> Services
+              </h2>
+              <Link
+                href="/services"
+                className="text-gray-400 hover:text-miningGold transition-colors text-sm"
+                onClick={() => setIsServicesOpen(false)}
+              >
+                View All Services →
+              </Link>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {services.map((service) => (
+                <Link
+                  key={service.id}
+                  href={`/services/${service.slug}`}
+                  className={`group block p-6 rounded-xl bg-miningDark/50 border-l-4 ${service.color} hover:bg-miningDark transition-all duration-300 hover:transform hover:scale-[1.02]`}
+                  onClick={() => setIsServicesOpen(false)}
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="text-4xl">{service.icon}</div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold text-white group-hover:text-miningGold transition-colors mb-2">
+                        {service.name}
+                      </h3>
+                      <p className="text-gray-400 text-sm leading-relaxed mb-3">
+                        {service.description}
+                      </p>
+                      <p className="text-gray-500 text-xs leading-relaxed">
+                        {service.fullDescription.substring(0, 120)}...
+                      </p>
+                      <div className="mt-3 inline-flex items-center text-miningGold text-sm font-medium group-hover:underline">
+                        Learn More
+                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            {/* Bottom CTA Section */}
+            <div className="mt-8 pt-6 border-t border-miningGold/20">
+              <div className="bg-miningDark/50 rounded-xl p-6 text-center">
+                <p className="text-gray-300">
+                  <span className="text-miningGold font-semibold text-lg">Ready to discuss your next project?</span>
+                  <br />
+                  <span className="text-gray-400">Our team of experts is ready to help you achieve your mining goals.</span>
+                </p>
+                <Link
+                  href="/contact"
+                  onClick={() => setIsServicesOpen(false)}
+                  className="inline-block mt-4 btn-primary"
+                >
+                  Request a Consultation
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       )}
-    </>
+    </nav>
   )
 }
 
