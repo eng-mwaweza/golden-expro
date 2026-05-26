@@ -16,53 +16,53 @@ import {
 const services = [
   {
     id: 1,
-    name: 'Strategy',
-    slug: 'strategy',
+    name: 'Mining Strategy',
+    slug: 'mining-strategy',
     icon: FaChartLine,
     iconColor: 'text-blue-500',
     bgColor: 'bg-blue-500/10',
-    description: 'Minrom\'s strategy service aims to unlock the value of a project by integrating geological and metallurgical ore characteristics, mine planning and environmental drivers of ore deposits.',
-    fullDescription: 'We combine geological and geometallurgical expertise with strategic planning to optimise resource utilisation, improve operational efficiency, and enhance project viability. From feasibility studies to life-of-mine planning, we help clients navigate complex geological, technical, and economic challenges. Our tailored strategies ensure that mining projects are not only profitable but also sustainable, aligning with industry best practices and regulatory requirements. With Minrom, you gain a roadmap to success—built on data, driven by strategy.',
-    features: ['Resource Optimisation', 'Feasibility Studies', 'Life-of-Mine Planning', 'Risk Mitigation'],
+    description: 'GOLDEN EXPRO\'s mining strategy services provide mining companies with the insights and direction needed to make informed, long-term decisions that maximize project value.',
+    fullDescription: 'We combine geological and geometallurgical expertise with strategic planning to optimise resource utilisation, improve operational efficiency, and enhance project viability. From feasibility studies to life-of-mine planning, we help clients navigate complex geological, technical, and economic challenges. Our tailored strategies ensure that mining projects are not only profitable but also sustainable, aligning with industry best practices and regulatory requirements.',
+    features: ['Feasibility Studies', 'Life-of-Mine Planning', 'Risk Assessment', 'Economic Analysis'],
     benefits: [
-      'Increase in NPV and IRR returns',
+      'Increased NPV and ROI',
       'Optimized resource utilization',
-      'Improved operational efficiency',
-      'Enhanced project viability'
+      'Reduced operational risks',
+      'Improved decision-making'
     ]
   },
   {
     id: 2,
-    name: 'Exploration',
-    slug: 'exploration',
+    name: 'Mineral Exploration',
+    slug: 'mineral-exploration',
     icon: FaHardHat,
     iconColor: 'text-yellow-500',
     bgColor: 'bg-yellow-500/10',
-    description: 'Minrom\'s Exploration services identify and evaluate mineral deposits using advanced geological exploration techniques to maximise discovery potential and investment returns.',
-    fullDescription: 'We provide junior explorers or prospecting companies with the expertise and tools needed to discover and define valuable mineral resources. Whether it\'s mineral target generation, structural geology analysis, geometallurgical characterisation, or prospecting work programme development, we work closely with our clients to turn geological data into actionable intelligence, ensuring sustainable and efficient mining practices.',
-    features: ['Mineral Target Generation', 'Structural Geology Analysis', 'Geometallurgical Characterisation', 'Work Programme Development'],
+    description: 'GOLDEN EXPRO\'s mineral exploration services help junior explorers and mining companies discover and define valuable mineral resources across Tanzania and beyond.',
+    fullDescription: 'We provide junior explorers and mining companies with the expertise and tools needed to discover and define valuable mineral resources. Whether it\'s mineral target generation, structural geology analysis, geometallurgical characterisation, or prospecting work programme development, we work closely with our clients to turn geological data into actionable intelligence, ensuring sustainable and efficient mining practices.',
+    features: ['Target Generation', 'Structural Analysis', 'Geochemical Surveys', 'Drilling Programs'],
     benefits: [
       'Maximized discovery potential',
-      'Increased investment returns',
-      'Data-driven decision making',
+      'Cost-effective exploration',
+      'Data-driven targeting',
       'Reduced exploration risk'
     ]
   },
   {
     id: 3,
-    name: 'Resource Modelling & GIS',
+    name: '3D Modelling & GIS',
     slug: 'modelling-gis',
     icon: FaMap,
     iconColor: 'text-green-500',
     bgColor: 'bg-green-500/10',
-    description: 'Minrom\'s Modelling and GIS services integrate complex geological data, structural data and geometallurgical data into well-informed optimised mine plans, driving the increase in NPV.',
+    description: 'GOLDEN EXPRO\'s modelling and GIS services transform complex geological data into actionable insights, enabling precise Mineral Resource estimation.',
     fullDescription: 'Our Modelling and GIS services transform complex geological data into actionable insights, enabling precise Mineral Resource estimation and strategic decision-making. Using advanced geological modelling and Geographic Information Systems (GIS), we create highly detailed 3D resource models that accurately represent subsurface conditions.',
-    features: ['3D Geological Modelling', 'GIS Spatial Analysis', 'Resource Estimation', 'Data Integration'],
+    features: ['3D Geological Models', 'Resource Estimation', 'Spatial Analysis', 'Data Visualization'],
     benefits: [
-      'Accurate resource estimation',
-      'Optimized mine planning',
-      'Increased NPV',
-      'Better decision making'
+      'Accurate resource models',
+      'Better investment decisions',
+      'Improved mine planning',
+      'Increased project value'
     ]
   },
   {
@@ -72,14 +72,14 @@ const services = [
     icon: FaMountain,
     iconColor: 'text-purple-500',
     bgColor: 'bg-purple-500/10',
-    description: 'Minrom\'s Mining Geology services deliver expert integration of mine planning and grade control practices and delivers efficient ore extraction, grade control and reserve reconciliation to maximise mining efficiency.',
-    fullDescription: 'At Minrom, our Mining Geology services are designed to bridge the gap between exploration and operational success. Whether it\'s grade control, structural geology analysis, geometallurgical modelling or reconciliation, we work closely with clients to turn geological data into actionable intelligence, ensuring sustainable and efficient mining practices.',
-    features: ['Grade Control', 'Structural Geology', 'Geometallurgical Modelling', 'Reserve Reconciliation'],
+    description: 'GOLDEN EXPRO\'s mining geology services bridge the gap between exploration and operational success for efficient ore extraction.',
+    fullDescription: 'At GOLDEN EXPRO, our Mining Geology services are designed to bridge the gap between exploration and operational success. Whether it\'s grade control, structural geology analysis, geometallurgical modelling or reconciliation, we work closely with clients to turn geological data into actionable intelligence, ensuring sustainable and efficient mining practices.',
+    features: ['Grade Control', 'Resource Reconciliation', 'Production Geology', 'Quality Assurance'],
     benefits: [
-      'Maximized mining efficiency',
       'Improved grade control',
-      'Better reserve reconciliation',
-      'Reduced operational costs'
+      'Higher recovery rates',
+      'Reduced dilution',
+      'Better reconciliation'
     ]
   },
   {
@@ -89,31 +89,31 @@ const services = [
     icon: FaWater,
     iconColor: 'text-cyan-500',
     bgColor: 'bg-cyan-500/10',
-    description: 'Minrom\'s Hydrology services specialise in groundwater detection, quantification, management, and sustainability solutions to support mining operations and environmental compliance.',
-    fullDescription: 'Minrom Hydrogeology specialises in the detection, quantification, and management of valuable groundwater and surface water resources, ensuring sustainable and efficient water solutions for mining, industrial operations, and the community.',
-    features: ['Groundwater Detection', 'Water Management', 'Environmental Compliance', 'Sustainability Solutions'],
+    description: 'GOLDEN EXPRO\'s hydrogeology services specialise in groundwater detection, management, and sustainability solutions for mining operations.',
+    fullDescription: 'GOLDEN EXPRO Hydrogeology specialises in the detection, quantification, and management of valuable groundwater and surface water resources, ensuring sustainable and efficient water solutions for mining, industrial operations, and the community.',
+    features: ['Groundwater Assessment', 'Water Management', 'Environmental Compliance', 'Sustainable Solutions'],
     benefits: [
       'Reduced water-related risks',
       'Environmental compliance',
-      'Sustainable water management',
-      'Cost optimization'
+      'Sustainable water use',
+      'Lower operational costs'
     ]
   },
   {
     id: 6,
-    name: 'Training',
-    slug: 'training',
+    name: 'Geology Training',
+    slug: 'geology-training',
     icon: FaGraduationCap,
     iconColor: 'text-orange-500',
     bgColor: 'bg-orange-500/10',
-    description: 'Minrom\'s Training programmes equip professionals with hands-on skills in mineral exploration, resource estimation, geological mapping, mine planning, and mining 101 for real-world mining applications.',
-    fullDescription: 'Minrom\'s Training programmes equip exploration and mining professionals with the knowledge and practical skills needed to excel in the field. Whether it\'s mapping, geological modelling, structural geology analysis, grade control, reconciliation or mining 101, we help you drive NPV growth for your project.',
-    features: ['Hands-on Training', 'Geological Mapping', 'Mine Planning', 'Professional Development'],
+    description: 'GOLDEN EXPRO\'s training programmes equip professionals with practical skills in exploration, resource estimation, and mine planning.',
+    fullDescription: 'GOLDEN EXPRO\'s Training programmes equip exploration and mining professionals with the knowledge and practical skills needed to excel in the field. Whether it\'s mapping, geological modelling, structural geology analysis, grade control, reconciliation or mining fundamentals, we help you drive NPV growth for your project.',
+    features: ['Field Training', 'Software Training', 'Technical Workshops', 'Professional Development'],
     benefits: [
       'Enhanced team skills',
-      'Increased operational efficiency',
-      'Reduced training costs',
-      'Better project outcomes'
+      'Better exploration results',
+      'Improved efficiency',
+      'Higher project returns'
     ]
   },
 ]
@@ -215,7 +215,7 @@ export default function ServiceDetailPage() {
                   href="/contact"
                   className="block w-full text-center btn-primary"
                 >
-                  Request a Consultation
+                  Partner With Us
                 </Link>
               </div>
             </div>

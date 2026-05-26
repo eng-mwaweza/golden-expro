@@ -12,7 +12,7 @@ const services = [
     id: 1,
     name: 'Strategy',
     slug: 'strategy',
-    description: 'Minrom\'s strategy service aims to unlock the value of a project by integrating geological and metallurgical ore characteristics, mine planning and environmental drivers of ore deposits.',
+    description: 'Goldenexpro\'s strategy service aims to unlock the value of a project by integrating geological and metallurgical ore characteristics, mine planning and environmental drivers of ore deposits.',
     fullDescription: 'We combine geological and geometallurgical expertise with strategic planning to optimise resource utilisation, improve operational efficiency, and enhance project viability. From feasibility studies to life-of-mine planning, we help clients navigate complex geological, technical, and economic challenges.',
     icon: '📊',
     color: 'border-blue-500'
@@ -21,7 +21,7 @@ const services = [
     id: 2,
     name: 'Exploration',
     slug: 'exploration',
-    description: 'Minrom\'s Exploration services identify and evaluate mineral deposits using advanced geological exploration techniques to maximise discovery potential and investment returns.',
+    description: 'Goldenexpro\'s Exploration services identify and evaluate mineral deposits using advanced geological exploration techniques to maximise discovery potential and investment returns.',
     fullDescription: 'We provide junior explorers or prospecting companies with the expertise and tools needed to discover and define valuable mineral resources. Whether it\'s mineral target generation, structural geology analysis, geometallurgical characterisation, or prospecting work programme development.',
     icon: '⛏️',
     color: 'border-yellow-500'
