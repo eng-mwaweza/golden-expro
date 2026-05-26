@@ -18,25 +18,25 @@ import {
   FaChevronRight
 } from 'react-icons/fa'
 
-// Service slides for carousel (after main hero)
+// Service slides with FREE Unsplash Images
 const serviceSlides = [
   {
     id: 1,
     name: 'Mining Strategy',
-    slug: 'mining-strategy',
+    slug: 'strategy',
     icon: FaChartLine,
     iconColor: 'text-blue-500',
-    bgImage: '/images/strategy-bg.jpg',
+    bgImage: 'https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=1200&h=800&fit=crop',
     shortDescription: 'Strategic planning for optimal resource utilisation and project viability.',
     description: 'GOLDEN EXPRO\'s mining strategy services provide mining companies with the insights and direction needed to make informed, long-term decisions that maximize project value.'
   },
   {
     id: 2,
     name: 'Mineral Exploration',
-    slug: 'mineral-exploration',
+    slug: 'exploration',
     icon: FaHardHat,
     iconColor: 'text-yellow-500',
-    bgImage: '/images/exploration-bg.jpg',
+    bgImage: 'https://images.unsplash.com/photo-1541252260730-0412e8e2f6b3?w=1200&h=800&fit=crop',
     shortDescription: 'Advanced geological exploration to maximise discovery potential.',
     description: 'GOLDEN EXPRO\'s mineral exploration services help junior explorers and mining companies discover and define valuable mineral resources across Tanzania and beyond.'
   },
@@ -46,7 +46,7 @@ const serviceSlides = [
     slug: 'modelling-gis',
     icon: FaMap,
     iconColor: 'text-green-500',
-    bgImage: '/images/modelling-bg.jpg',
+    bgImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=800&fit=crop',
     shortDescription: 'Transform geological data into actionable insights.',
     description: 'GOLDEN EXPRO\'s modelling and GIS services transform complex geological data into actionable insights, enabling precise Mineral Resource estimation.'
   },
@@ -56,7 +56,7 @@ const serviceSlides = [
     slug: 'mining-geology',
     icon: FaMountain,
     iconColor: 'text-purple-500',
-    bgImage: '/images/mining-geology-bg.jpg',
+    bgImage: 'https://images.unsplash.com/photo-1581093458791-9f8c8a8c3e8b?w=1200&h=800&fit=crop',
     shortDescription: 'Bridge the gap between exploration and operational success.',
     description: 'GOLDEN EXPRO\'s mining geology services bridge the gap between exploration and operational success for efficient ore extraction.'
   },
@@ -66,17 +66,17 @@ const serviceSlides = [
     slug: 'hydrogeology',
     icon: FaWater,
     iconColor: 'text-cyan-500',
-    bgImage: '/images/hydrogeology-bg.jpg',
+    bgImage: 'https://images.unsplash.com/photo-1544413660-299165566b1d?w=1200&h=800&fit=crop',
     shortDescription: 'Groundwater detection and management solutions.',
     description: 'GOLDEN EXPRO\'s hydrogeology services specialise in groundwater detection, management, and sustainability solutions for mining operations.'
   },
   {
     id: 6,
     name: 'Geology Training',
-    slug: 'geology-training',
+    slug: 'training',
     icon: FaGraduationCap,
     iconColor: 'text-orange-500',
-    bgImage: '/images/training-bg.jpg',
+    bgImage: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&h=800&fit=crop',
     shortDescription: 'Equip professionals with practical mining skills.',
     description: 'GOLDEN EXPRO\'s training programmes equip professionals with practical skills in exploration, resource estimation, and mine planning.'
   },
@@ -104,6 +104,9 @@ const miningStages = [
   { name: 'Start-Up', number: 6, description: 'Production commencement' },
   { name: 'Depletion', number: 7, description: 'Resource exhaustion' },
 ]
+
+// Hero background image
+const heroBgImage = 'https://images.unsplash.com/photo-1581092335871-4c4b0a7c7b3a?w=1920&h=1080&fit=crop'
 
 export default function Home() {
   const heroRef = useRef(null)
@@ -155,12 +158,12 @@ export default function Home() {
       
       {/* PHASE 1A: MAIN COMPANY HERO SECTION */}
       <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background */}
+        {/* Background Image from CDN */}
         <div className="absolute inset-0 z-0">
           <div 
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{ 
-              backgroundImage: "url('/images/hero-bg.jpg')",
+              backgroundImage: `url(${heroBgImage})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center'
             }}
@@ -242,7 +245,7 @@ export default function Home() {
               style={{ backgroundColor: 'var(--color-miningGray)' }}
             >
               <div className="flex flex-col md:flex-row">
-                {/* Image Side */}
+                {/* Image Side with CDN Image */}
                 <div className="md:w-1/2 h-80 md:h-auto relative">
                   <div 
                     className="absolute inset-0 bg-cover bg-center"
@@ -299,7 +302,7 @@ export default function Home() {
             </button>
 
             {/* Service Indicators */}
-            <div className="flex justify-center gap-2 mt-8">
+            <div className="flex justify-center gap-2 mt-8 flex-wrap">
               {serviceSlides.map((service, index) => (
                 <button
                   key={service.id}
